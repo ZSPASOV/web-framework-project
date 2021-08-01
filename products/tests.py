@@ -27,3 +27,21 @@ class ProductModelTest(TestCase):
         with self.assertRaises(Exception):
             imgpath = 'media/product_img/apple.jpg'
             entry = Product.objects.create(image=imgpath, description='cool',price=2000000000.3)
+
+
+    def test_with_empty_description(self):
+        with self.assertRaises(Exception):
+            imgpath = 'media/product_img/apple.jpg'
+            entry = Product.objects.create(image=imgpath, name="testing product", price=2000000000.3)
+
+
+    def test_with_empty_image(self):
+        with self.assertRaises(Exception):
+            imgpath = 'media/product_img/apple.jpg'
+            entry = Product.objects.create(name="testing product", description='cool',price=2000000000.3)
+
+
+    def test_with_empty_price(self):
+        with self.assertRaises(Exception):
+            imgpath = 'media/product_img/apple.jpg'
+            entry = Product.objects.create(image=imgpath, description='cool',name="testing product")
