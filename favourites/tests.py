@@ -20,3 +20,15 @@ class FavouriteProductTest(TestCase):
         entry = FavouriteProduct.objects.create(product=self.product ,user=self.user, is_favourite=False)
         res = 'product {} {} by {}'.format('testing product', 'marked favourite', '')
         self.assertEqual(str(entry),res)
+
+    def test_with_authenticate_user_favourite(self):
+        self.client.force_login(user=self.user)
+        response = self.client.get(reverse('mark-favourite',kwargs={'id':self.product.id}))
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('marked' in response.json())
+        self.assertTrue(response.json()['marked'])
+
+    def test_with_unauthenticate_user_favourite(self):
+        with self.assertRaises(TypeError):
+            response = self.client.get(reverse('mark-favourite',kwargs={'id':self.product.id}))
+        
