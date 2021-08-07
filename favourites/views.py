@@ -25,7 +25,7 @@ class FavouriteProductListView(ListView):
         return super().get(request)
 
 @csrf_exempt
-def markFavourtie(request, id):
+def mark_favourite(request, id):
     '''
     Marks or unmark the product as favourite.
 
